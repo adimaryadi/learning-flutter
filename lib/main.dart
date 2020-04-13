@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+// import 'package:english_words/english_words.dart';
 void main() {
   runApp(MyApp());
 }
@@ -8,33 +8,56 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final wordPair  =  WordPair.random();
     return MaterialApp(
-      title:  'Selamat Datang Belajar Flutter ',
+      title: 'Learning Layout Flutter ',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Selamat Datang Belajar Flutter'),
+          title: Text('Learning Layout Flutter '),
         ),
-        body: Center(
-          child: RandomWords(),
+        body: Column(
+          children: [
+            titleSection
+          ],
         ),
-      )
+      ),
     );
   }
 }
 
-class RandomWords extends StatefulWidget {
-  @override
-  RandomWordsState createState() => RandomWordsState();
-}
-
-class RandomWordsState extends State<RandomWords> {
-  @override
-  Widget build(BuildContext context) {
-    final wordPair   =   WordPair.random();
-    return Text(wordPair.asPascalCase);
-  }
-}
+Widget titleSection   =  Container(
+  padding: const EdgeInsets.all(32),
+  child: Row(
+    children: [
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                'Sayur Sehat Wortel',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Text(
+              'Gulemmer',
+              style: TextStyle(
+                color: Colors.grey[500]
+              ),
+            )
+          ],
+        ),
+      ),
+      Icon(
+        Icons.star,
+        color: Colors.red[500]
+      ),
+      Text('40')
+    ],
+  ),
+);
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
