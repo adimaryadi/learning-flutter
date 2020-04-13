@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:hexcolor/hexcolor.dart';
 void main() {
   runApp(MyApp());
 }
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
       title:  'Selamat Datang Belajar Flutter ',
       home: RandomWords(),
       theme: ThemeData(
-        primaryColor: Colors.white
+        primaryColor: Colors.green
       ),
     );
   }
@@ -40,6 +41,7 @@ class RandomWordsState extends State<RandomWords> {
 
   Widget _buildRow(WordPair pair) {
     final alreadySaved    =    _saved.contains(pair);
+    final Color color     =    Hexcolor('#ff3366');
     return ListTile(
       title: Text(
         pair.asPascalCase,
@@ -47,7 +49,7 @@ class RandomWordsState extends State<RandomWords> {
       ),
       trailing: Icon(
         alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : null,
+        color: alreadySaved ? color : null,
       ),
       onTap: () {
         setState(() {
@@ -98,7 +100,9 @@ class RandomWordsState extends State<RandomWords> {
             appBar: AppBar(
               title: Text('Save Selected '),
             ),
-            body:  ListView(children: divided),
+            body:  Center(
+              child: ListView(children: divided),
+            ),
           );
         }
       )
