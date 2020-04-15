@@ -8,56 +8,103 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Learning Layout Flutter ',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Learning Layout Flutter '),
-        ),
-        body: Column(
+     Widget titleSection   =  Container(
+        padding: const EdgeInsets.all(32),
+        child: Row(
           children: [
-            titleSection,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      'Sayur Sehat Wortel',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'Gulemmer',
+                    style: TextStyle(
+                      color: Colors.grey[500]
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Icon(
+              Icons.star,
+              color: Colors.red[500]
+            ),
+            Text('40')
           ],
         ),
-      ),
+      );
+
+      Color color   =   Theme.of(context).primaryColor;
+
+      Widget buttonSection  =   Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildButtonColumn(color, Icons.call, 'Panggil'),
+            _buildButtonColumn(color, Icons.near_me, 'Route'),
+            _buildButtonColumn(color, Icons.share, 'Bagikan')
+          ],
+        ),
+      );
+
+      Widget textSection    =   Container(
+        padding: const EdgeInsets.all(32),
+        child: Text('Dolor maqlini qua test masum ipman Dolor maqlini qua test masum ipman Dolor maqlini qua test masum ipman ', softWrap: true),
+      );
+
+      return MaterialApp(
+        title: 'Learning Layout ',
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Learning Layout'),
+          ),
+          body: ListView(
+            children: [
+              Image.asset(
+                'images/me.jpg',
+                width: 600,
+                height: 240,
+                fit: BoxFit.cover,
+              ),
+              titleSection,
+              buttonSection,
+              textSection
+            ],
+          ),
+        ),
+      );
+  }
+
+  Column _buildButtonColumn(Color color, IconData icon, String label) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(icon, color: color),
+        Container(
+          margin: const EdgeInsets.only(top: 8),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: color,
+            ),
+          ),
+        )
+      ],
     );
   }
 }
-
-Widget titleSection   =  Container(
-  padding: const EdgeInsets.all(32),
-  child: Row(
-    children: [
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                'Sayur Sehat Wortel',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Text(
-              'Gulemmer',
-              style: TextStyle(
-                color: Colors.grey[500]
-              ),
-            )
-          ],
-        ),
-      ),
-      Icon(
-        Icons.star,
-        color: Colors.red[500]
-      ),
-      Text('40')
-    ],
-  ),
-);
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
