@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           20,
           (i) => Todo(
             'Todo $i',
-            'A description of what needs to be done fot todo $i',
+            'A description of what needs sto be done fot todo $i',
           ),
         ),
       ),
