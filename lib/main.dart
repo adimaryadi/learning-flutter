@@ -1,39 +1,82 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 void main() {
   runApp(MyApp());
+}
+
+class Todo {
+   final String title;
+   final String description;
+   Todo(this.title,this.description);
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final wordPair  =  WordPair.random();
     return MaterialApp(
-      title:  'Selamat Datang Belajar Flutter ',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Selamat Datang Belajar Flutter'),
+      title:  'Data',
+      home: TodosScreen(
+        todos: List.generate(
+          20,
+          (i) => Todo(
+            'Todo $i',
+            'A description of what needs to be done fot todo $i',
+          ),
         ),
-        body: Center(
-          child: RandomWords(),
-        ),
-      )
+      ),
     );
   }
 }
 
-class RandomWords extends StatefulWidget {
-  @override
-  RandomWordsState createState() => RandomWordsState();
+class TodosScreen extends StatelessWidget {
+   final List<Todo> todos;
+
+   TodosScreen({Key key, @required this.todos}):
+   super(key: key);
+
+   @override
+   Widget build(BuildContext context) {
+     return Scaffold(
+       appBar: AppBar(
+         title: Text('Todos'),
+       ),
+       body: ListView.builder(
+         itemCount: todos.length,
+         itemBuilder: (context, index) {
+           return ListTile(
+             title: Text(todos[index].title),
+             onTap: () {
+               Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                       builder: (context) => DetailScreen(todo: todos[index])
+                    ),
+                 );
+             },
+           );
+         },
+       ),
+     );
+   }
 }
 
-class RandomWordsState extends State<RandomWords> {
-  @override
-  Widget build(BuildContext context) {
-    final wordPair   =   WordPair.random();
-    return Text(wordPair.asPascalCase);
-  }
+class DetailScreen extends StatelessWidget {
+    final Todo todo;
+    DetailScreen({Key key, @required this.todo}) :
+    super(key: key);
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(todo.title),
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(16),
+          child: Text(todo.description),
+        ),
+      );
+    }
 }
 
 class MyHomePage extends StatefulWidget {
