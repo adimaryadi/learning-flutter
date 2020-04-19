@@ -1,38 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+     title: 'Navigation Basic',
+     home: FirstRoute(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class FirstRoute extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final wordPair  =  WordPair.random();
-    return MaterialApp(
-      title:  'Selamat Datang Belajar Flutter ',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Selamat Datang Belajar Flutter'),
-        ),
-        body: Center(
-          child: RandomWords(),
-        ),
-      )
-    );
+     return Scaffold(
+       appBar: AppBar(
+         title: Text('First Route'),
+       ),
+       body: Center(
+         child: RaisedButton(
+           child: Text('Open Route'),
+           onPressed: () {
+             Navigator.push(
+               context,
+               MaterialPageRoute(builder:(context) => SecondRoute()),
+             );
+           },
+         ),
+       ),
+     );
   }
 }
 
-class RandomWords extends StatefulWidget {
-  @override
-  RandomWordsState createState() => RandomWordsState();
-}
-
-class RandomWordsState extends State<RandomWords> {
+class SecondRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final wordPair   =   WordPair.random();
-    return Text(wordPair.asPascalCase);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Second Route'),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go Back'),
+        ),
+      ),
+    );
   }
 }
 
