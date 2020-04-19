@@ -16,7 +16,7 @@ class FirstRoute extends StatelessWidget {
        ),
        body: Center(
          child: RaisedButton(
-           child: Text('Open Route'),
+           child: Text('Open Routes'),
            onPressed: () {
              Navigator.push(
                context,
