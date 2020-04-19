@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
      title: 'Navigation Basic',
-     home: FirstRoute(),
+     initialRoute: '/',
+     routes: {
+       '/': (context) => FirstRoute(),
+       '/secondRoute': (context) => SecondRoute()
+     },
   ));
 }
 
@@ -18,9 +22,9 @@ class FirstRoute extends StatelessWidget {
          child: RaisedButton(
            child: Text('Open Routes'),
            onPressed: () {
-             Navigator.push(
+             Navigator.pushNamed(
                context,
-               MaterialPageRoute(builder:(context) => SecondRoute()),
+               '/secondRoute'
              );
            },
          ),
