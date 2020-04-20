@@ -1,82 +1,59 @@
 import 'package:flutter/material.dart';
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: MyApp(),
+  ));
 }
 
-class Todo {
-   final String title;
-   final String description;
-   Todo(this.title,this.description);
-}
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title:  'Data',
-      home: TodosScreen(
-        todos: List.generate(
-          20,
-          (i) => Todo(
-            'Todo $i',
-            'A description of what needs sto be done fot todo $i',
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TodosScreen extends StatelessWidget {
-   final List<Todo> todos;
-
-   TodosScreen({Key key, @required this.todos}):
-   super(key: key);
-
-   @override
-   Widget build(BuildContext context) {
-     return Scaffold(
-       appBar: AppBar(
-         title: Text('Todos'),
-       ),
-       body: ListView.builder(
-         itemCount: todos.length,
-         itemBuilder: (context, index) {
-           return ListTile(
-             title: Text(todos[index].title),
-             onTap: () {
-               Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                       builder: (context) => DetailScreen(todo: todos[index])
-                    ),
-                 );
-             },
-           );
-         },
-       ),
-     );
-   }
-}
-
-class DetailScreen extends StatelessWidget {
-    final Todo todo;
-    DetailScreen({Key key, @required this.todo}) :
-    super(key: key);
-
-    @override
     Widget build(BuildContext context) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(todo.title),
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(16),
-          child: Text(todo.description),
+        appBar: AppBar(),
+        body: Center(
+          child: RaisedButton(
+            child: Text('Go!'),
+            onPressed: () {
+               Navigator.of(context).push(_createRoute());
+            },
+          ),
         ),
       );
     }
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => PageTwo(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin     =   Offset(0.0, 1.0);
+      var end       =   Offset.zero;
+      var curve     =   Curves.ease;
+
+      var tween              =   Tween(begin: begin,end: end);
+      var curvedAnimation    =   CurvedAnimation(
+        parent: animation,
+        curve:  curve
+      );
+
+      return SlideTransition(
+        position: tween.animate(curvedAnimation),
+        child: child,
+      );
+    },
+  );
+}
+
+
+class PageTwo extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: Text('Page 2'),
+      ),
+    );
+  }
 }
 
 class MyHomePage extends StatefulWidget {
